@@ -13,7 +13,7 @@ Entities:
 |       | ¥ | Adult wolf. Consumes sheep. Will seek out mate if fed.   |
 
 ## Download
-[Download Executable Here](/EcosystemProject/bin/Debug/EcosystemProject.exe)
+[Download Executable Here](https://JollyWolly.github.io/EcosystemProject/blob/main/EcosystemProject/bin/Debug/EcosystemProject.exe)
 
 ## Usage
 ### Creation
