@@ -10,7 +10,6 @@ A windows application that simulates a preditor-prey environment.
 - [Download](##Download)
 
 
-<a name="usage"/>
 ## Usage
 
 ![](/ReadMe_Images/screenshot1.png)
@@ -24,7 +23,6 @@ Entities:
 | Wolf  | v | Adolescent wolf. Consumes sheep. Matures after 20 days.  |
 |       | ¥ | Adult wolf. Consumes sheep. Will seek out mate if fed.   |
 
-<a name="creation"/>
 ### Creation
 | Control | Description | 
 | --- | --- |
@@ -34,7 +32,6 @@ Entities:
 | Spawn Rate         | Controls the amount of a species that is initially generated. |
 | Create Eco         | Create an ecosystem with the above parameters. |
 
-<a name="progression"/>
 ### Progression
 | Control | Description |
 | --- | --- |
@@ -42,7 +39,6 @@ Entities:
 | Skip      | Skip the set amount of days. |
 | Next Day  | Progress to next day in simulation. |
 
-<a name="info"/>
 ### Info
 | Button | Option |  Description |
 | --- | --- | --- |
@@ -59,7 +55,6 @@ Entities:
 
 Save buttons save a txt file containing graph's data for that population. Formatted as '(day, number)'. 
 
-<a name="appearance"/>
 ### Appearance 
 | Theme | Description | 
 | --- | --- |
@@ -69,5 +64,5 @@ Save buttons save a txt file containing graph's data for that population. Format
 <a name="download"/>
 ## Download
 [Download Executable Here](https://github.com/JollyWolly/EcosystemProject/releases/tag/windows)
-
+</a>
 
