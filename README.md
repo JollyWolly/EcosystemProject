@@ -8,7 +8,8 @@ A windows application that simulates a preditor-prey environment.
   * [Info](###Info)
   * [Appearacne](###Appearance)
 - [Download](##Download)
-<a name="headers"/>
+
+
 
 ## Usage
 
@@ -64,3 +65,5 @@ Save buttons save a txt file containing graph's data for that population. Format
 
 ## Download
 [Download Executable Here](https://github.com/JollyWolly/EcosystemProject/releases/tag/windows)
+
+<a name="headers"/>
