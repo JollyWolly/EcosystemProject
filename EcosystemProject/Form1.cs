@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EcosystemProject
@@ -13,7 +9,6 @@ namespace EcosystemProject
     public partial class Form1 : Form
     {
         Ecosystem eco;
-        bool worldCreated;
 
         Color grassColor = Color.LightGreen;
         Color sheepColor = Color.WhiteSmoke;
@@ -26,21 +21,15 @@ namespace EcosystemProject
         public Form1()
         {
             InitializeComponent();
+            backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.WorkerSupportsCancellation = true;
         }
 
         private void drawEco()
         {
             string ecoGrid = eco.getTxtGrid();
             displayBox.Text = ecoGrid;
-            if (colorCheckBox.Checked)
-            {
-                colorChar('"', grassColor);
-                colorChar('@', sheepColor);
-                colorChar('a', sheepColor);
-                colorChar('v', wolfColor);
-                colorChar('¥', wolfColor);
-            }
-
+            draw();
             day_Label.Text = Convert.ToString(eco.day);
 
             grassCount_Label.Text = Convert.ToString(eco.grassCount);
@@ -52,6 +41,25 @@ namespace EcosystemProject
                 grassGrowth_Label.Text = Convert.ToString(grassPopList[eco.day] - grassPopList[eco.day - 1]);
                 sheepGrowth_Label.Text = Convert.ToString(sheepPopList[eco.day] - sheepPopList[eco.day - 1]);
                 wolfGrowth_Label.Text = Convert.ToString(wolfPopList[eco.day] - wolfPopList[eco.day - 1]);
+            }
+            else
+            {
+                grassGrowth_Label.Text = "0";
+                sheepGrowth_Label.Text = "0";
+                wolfGrowth_Label.Text = "0";
+            }
+        }
+
+        private void draw()
+        {
+            displayBox.Text = displayBox.Text;
+            if (colorCheckBox.Checked)
+            {
+                colorChar('"', grassColor);
+                colorChar('@', sheepColor);
+                colorChar('a', sheepColor);
+                colorChar('v', wolfColor);
+                colorChar('¥', wolfColor);
             }
         }
 
@@ -133,7 +141,6 @@ namespace EcosystemProject
 
 
             eco = new Ecosystem(h, w, antiExtinction_Checkbox.Checked, foodRate.Value, sheepRate.Value, wolfRate.Value);
-            worldCreated = true;
 
             // enable buttons
             nextDay_Button.Enabled = true;
@@ -155,42 +162,24 @@ namespace EcosystemProject
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void nextDay_Button_Click(object sender, EventArgs e)
         {
             update();
             drawEco();
         }
 
-        private void yearLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void colorCheckBox_CheckStateChanged(object sender, EventArgs e)
         {
             updateColors();
-            if (worldCreated) { drawEco(); }
+            draw();
         }
 
         private void nightCheckBox_CheckStateChanged(object sender, EventArgs e)
         {
             updateColors();
-            if (worldCreated) { drawEco(); }
+            draw();
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void popGraph_Button_Click(object sender, EventArgs e)
         {
@@ -251,57 +240,64 @@ namespace EcosystemProject
 
         private void skipDays_Button_Click(object sender, EventArgs e)
         {
-            int daySkipCount = Convert.ToInt32(skipDays_NumericUpDown.Value);
-            progressBar1.Visible = true;
-            progressBar1.Maximum = daySkipCount;
-            progressBar1.Value = 0;
-            for (int i = 0; i < daySkipCount; i++)
+            if (backgroundWorker1.IsBusy == true)
             {
-                update();
-                progressBar1.Value++;
+                backgroundWorker1.CancelAsync();
             }
+            else
+            {
+                skipDays_Button.Text = "STOP";
+                nextDay_Button.Enabled = false;
+                createEco_Button.Enabled = false;
+
+                int daysToSkip = (int)skipDays_NumericUpDown.Value;
+
+                progressBar1.Visible = true;
+                progressBar1.Maximum = daysToSkip;
+                progressBar1.Value = 0;
+
+                backgroundWorker1.RunWorkerAsync(daysToSkip);
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker bgw = sender as BackgroundWorker;
+
+            skipDays((int)e.Argument, bgw, e);
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+            
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             drawEco();
             progressBar1.Visible = false;
+            skipDays_Button.Text = "Skip";
+            createEco_Button.Enabled = true;
+            nextDay_Button.Enabled = true;
         }
 
-        private void antiExtinction_Checkbox_CheckedChanged(object sender, EventArgs e)
+        private void skipDays(int l, BackgroundWorker bwg, DoWorkEventArgs e)
         {
-
+            for (int i = 0; i < l; i++)
+            {
+                if (backgroundWorker1.CancellationPending)
+                {
+                    break;
+                }
+                else
+                {
+                    update();
+                    bwg.ReportProgress(i);
+                }
+            }
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void sheepRate_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void wolfRate_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void wNumber_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

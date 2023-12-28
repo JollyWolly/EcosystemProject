@@ -30,7 +30,7 @@ namespace EcosystemProject
         /// </summary>
         private void InitializeComponent()
         {
-            this.CreateEcosystem_Button = new System.Windows.Forms.Button();
+            this.createEco_Button = new System.Windows.Forms.Button();
             this.height_NumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.width_NumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -72,10 +72,11 @@ namespace EcosystemProject
             this.label11 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label13 = new System.Windows.Forms.Label();
             this.skipDays_NumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.skipDays_Button = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.height_NumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.width_NumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.foodRate)).BeginInit();
@@ -88,15 +89,15 @@ namespace EcosystemProject
             ((System.ComponentModel.ISupportInitialize)(this.skipDays_NumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
-            // CreateEcosystem_Button
+            // createEco_Button
             // 
-            this.CreateEcosystem_Button.Location = new System.Drawing.Point(11, 114);
-            this.CreateEcosystem_Button.Name = "CreateEcosystem_Button";
-            this.CreateEcosystem_Button.Size = new System.Drawing.Size(252, 23);
-            this.CreateEcosystem_Button.TabIndex = 0;
-            this.CreateEcosystem_Button.Text = "Create Eco";
-            this.CreateEcosystem_Button.UseVisualStyleBackColor = true;
-            this.CreateEcosystem_Button.Click += new System.EventHandler(this.createEco_Click);
+            this.createEco_Button.Location = new System.Drawing.Point(11, 114);
+            this.createEco_Button.Name = "createEco_Button";
+            this.createEco_Button.Size = new System.Drawing.Size(252, 23);
+            this.createEco_Button.TabIndex = 0;
+            this.createEco_Button.Text = "Create Eco";
+            this.createEco_Button.UseVisualStyleBackColor = true;
+            this.createEco_Button.Click += new System.EventHandler(this.createEco_Click);
             // 
             // height_NumericUpDown
             // 
@@ -137,11 +138,10 @@ namespace EcosystemProject
             this.width_NumericUpDown.Size = new System.Drawing.Size(38, 20);
             this.width_NumericUpDown.TabIndex = 2;
             this.width_NumericUpDown.Value = new decimal(new int[] {
-            96,
+            84,
             0,
             0,
             0});
-            this.width_NumericUpDown.ValueChanged += new System.EventHandler(this.wNumber_ValueChanged);
             // 
             // label1
             // 
@@ -169,7 +169,6 @@ namespace EcosystemProject
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Grass :";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // foodRate
             // 
@@ -186,7 +185,6 @@ namespace EcosystemProject
             this.sheepRate.Name = "sheepRate";
             this.sheepRate.Size = new System.Drawing.Size(119, 45);
             this.sheepRate.TabIndex = 9;
-            this.sheepRate.Scroll += new System.EventHandler(this.sheepRate_Scroll);
             // 
             // wolfRate
             // 
@@ -195,7 +193,6 @@ namespace EcosystemProject
             this.wolfRate.Name = "wolfRate";
             this.wolfRate.Size = new System.Drawing.Size(119, 45);
             this.wolfRate.TabIndex = 10;
-            this.wolfRate.Scroll += new System.EventHandler(this.wolfRate_Scroll);
             // 
             // label4
             // 
@@ -214,7 +211,6 @@ namespace EcosystemProject
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 12;
             this.label5.Text = "Wolf :";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // displayBox
             // 
@@ -226,7 +222,8 @@ namespace EcosystemProject
             this.displayBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this.displayBox.Location = new System.Drawing.Point(12, 152);
             this.displayBox.Name = "displayBox";
-            this.displayBox.Size = new System.Drawing.Size(796, 331);
+            this.displayBox.ReadOnly = true;
+            this.displayBox.Size = new System.Drawing.Size(709, 331);
             this.displayBox.TabIndex = 13;
             this.displayBox.Text = "";
             this.displayBox.WordWrap = false;
@@ -236,7 +233,7 @@ namespace EcosystemProject
             // 
             this.nextDay_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.nextDay_Button.Enabled = false;
-            this.nextDay_Button.Location = new System.Drawing.Point(6, 112);
+            this.nextDay_Button.Location = new System.Drawing.Point(6, 60);
             this.nextDay_Button.Name = "nextDay_Button";
             this.nextDay_Button.Size = new System.Drawing.Size(188, 23);
             this.nextDay_Button.TabIndex = 14;
@@ -248,19 +245,18 @@ namespace EcosystemProject
             // day_Label
             // 
             this.day_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.day_Label.Location = new System.Drawing.Point(177, 122);
+            this.day_Label.Location = new System.Drawing.Point(167, 123);
             this.day_Label.Name = "day_Label";
-            this.day_Label.Size = new System.Drawing.Size(33, 13);
+            this.day_Label.Size = new System.Drawing.Size(50, 13);
             this.day_Label.TabIndex = 15;
             this.day_Label.Text = "0";
             this.day_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.day_Label.Click += new System.EventHandler(this.yearLabel_Click);
             // 
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(179, 109);
+            this.label6.Location = new System.Drawing.Point(179, 104);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(26, 13);
             this.label6.TabIndex = 16;
@@ -282,7 +278,7 @@ namespace EcosystemProject
             this.colorCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.colorCheckBox.AutoSize = true;
             this.colorCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.colorCheckBox.Location = new System.Drawing.Point(724, 31);
+            this.colorCheckBox.Location = new System.Drawing.Point(630, 31);
             this.colorCheckBox.Name = "colorCheckBox";
             this.colorCheckBox.Size = new System.Drawing.Size(84, 17);
             this.colorCheckBox.TabIndex = 19;
@@ -295,7 +291,7 @@ namespace EcosystemProject
             this.nightCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.nightCheckBox.AutoSize = true;
             this.nightCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.nightCheckBox.Location = new System.Drawing.Point(727, 12);
+            this.nightCheckBox.Location = new System.Drawing.Point(633, 12);
             this.nightCheckBox.Name = "nightCheckBox";
             this.nightCheckBox.Size = new System.Drawing.Size(81, 17);
             this.nightCheckBox.TabIndex = 20;
@@ -446,11 +442,10 @@ namespace EcosystemProject
             this.antiExtinction_Checkbox.Text = "Prevent\r\nExtinction";
             this.antiExtinction_Checkbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.antiExtinction_Checkbox.UseVisualStyleBackColor = true;
-            this.antiExtinction_Checkbox.CheckedChanged += new System.EventHandler(this.antiExtinction_Checkbox_CheckedChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.CreateEcosystem_Button);
+            this.groupBox1.Controls.Add(this.createEco_Button);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label5);
@@ -469,7 +464,6 @@ namespace EcosystemProject
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creation";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label10
             // 
@@ -479,7 +473,6 @@ namespace EcosystemProject
             this.label10.Size = new System.Drawing.Size(66, 13);
             this.label10.TabIndex = 34;
             this.label10.Text = "Spawn Rate";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // groupBox2
             // 
@@ -607,17 +600,27 @@ namespace EcosystemProject
             this.groupBox4.Controls.Add(this.skipDays_NumericUpDown);
             this.groupBox4.Controls.Add(this.skipDays_Button);
             this.groupBox4.Controls.Add(this.nextDay_Button);
-            this.groupBox4.Location = new System.Drawing.Point(520, 3);
+            this.groupBox4.Location = new System.Drawing.Point(520, 56);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 143);
+            this.groupBox4.Size = new System.Drawing.Size(200, 90);
             this.groupBox4.TabIndex = 36;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Progession";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.BackColor = System.Drawing.SystemColors.Control;
+            this.progressBar1.ForeColor = System.Drawing.Color.OliveDrab;
+            this.progressBar1.Location = new System.Drawing.Point(6, 60);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(188, 23);
+            this.progressBar1.TabIndex = 37;
+            this.progressBar1.Visible = false;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 70);
+            this.label13.Location = new System.Drawing.Point(6, 18);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 13);
             this.label13.TabIndex = 17;
@@ -625,7 +628,7 @@ namespace EcosystemProject
             // 
             // skipDays_NumericUpDown
             // 
-            this.skipDays_NumericUpDown.Location = new System.Drawing.Point(9, 86);
+            this.skipDays_NumericUpDown.Location = new System.Drawing.Point(9, 34);
             this.skipDays_NumericUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -639,7 +642,7 @@ namespace EcosystemProject
             // skipDays_Button
             // 
             this.skipDays_Button.Enabled = false;
-            this.skipDays_Button.Location = new System.Drawing.Point(67, 84);
+            this.skipDays_Button.Location = new System.Drawing.Point(67, 32);
             this.skipDays_Button.Name = "skipDays_Button";
             this.skipDays_Button.Size = new System.Drawing.Size(127, 24);
             this.skipDays_Button.TabIndex = 15;
@@ -647,21 +650,17 @@ namespace EcosystemProject
             this.skipDays_Button.UseVisualStyleBackColor = true;
             this.skipDays_Button.Click += new System.EventHandler(this.skipDays_Button_Click);
             // 
-            // progressBar1
+            // backgroundWorker1
             // 
-            this.progressBar1.BackColor = System.Drawing.SystemColors.Control;
-            this.progressBar1.ForeColor = System.Drawing.Color.OliveDrab;
-            this.progressBar1.Location = new System.Drawing.Point(6, 112);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(188, 23);
-            this.progressBar1.TabIndex = 37;
-            this.progressBar1.Visible = false;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 495);
+            this.ClientSize = new System.Drawing.Size(733, 495);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.nightCheckBox);
             this.Controls.Add(this.colorCheckBox);
@@ -671,7 +670,6 @@ namespace EcosystemProject
             this.Name = "Form1";
             this.Text = "Project Ecosystem";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.height_NumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.width_NumericUpDown)).EndInit();
@@ -694,7 +692,7 @@ namespace EcosystemProject
 
         #endregion
 
-        private System.Windows.Forms.Button CreateEcosystem_Button;
+        private System.Windows.Forms.Button createEco_Button;
         private System.Windows.Forms.NumericUpDown height_NumericUpDown;
         private System.Windows.Forms.NumericUpDown width_NumericUpDown;
         private System.Windows.Forms.Label label1;
@@ -740,6 +738,7 @@ namespace EcosystemProject
         private System.Windows.Forms.Button skipDays_Button;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

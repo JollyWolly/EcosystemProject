@@ -20,7 +20,6 @@ D:\EcosystemProject\obj\Debug\EcosystemProject.pdb
 E:\EcosystemProject\bin\Debug\EcosystemProject.exe.config
 E:\EcosystemProject\bin\Debug\EcosystemProject.exe
 E:\EcosystemProject\bin\Debug\EcosystemProject.pdb
-E:\EcosystemProject\obj\Debug\EcosystemProject.csprojAssemblyReference.cache
 E:\EcosystemProject\obj\Debug\EcosystemProject.Form1.resources
 E:\EcosystemProject\obj\Debug\EcosystemProject.Properties.Resources.resources
 E:\EcosystemProject\obj\Debug\EcosystemProject.csproj.GenerateResource.cache

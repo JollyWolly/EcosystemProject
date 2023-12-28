@@ -32,10 +32,10 @@ namespace EcosystemProject
         // Grass PlantType Info
         Plant.PlantType grass;
         string GRASS_NAME = "grass";
-        int SEED_COOLDOWN = 5;
+        int SEED_COOLDOWN = 4;
         int GRASS_MAXAGE  = 15;
         // Misc.
-        int SEED_CHANCE = 30; // percent chance that grass will reproduce
+        int SEED_CHANCE = 40; // percent chance that grass will reproduce
         public int grassCount;
         /* GRASS INFO END */
 
@@ -49,7 +49,7 @@ namespace EcosystemProject
         int SHEEP_FOODCAP = 30;
         int SHEEP_ADULTAGE = 10;
         int SHEEP_MAXAGE = 40;
-        int SHEEP_COOLDOWN = 8;
+        int SHEEP_COOLDOWN = 10;
         int SHEEP_MOVEMENT = 1;
         // Misc.
         public int sheepCount;
@@ -61,18 +61,18 @@ namespace EcosystemProject
         Animal.AnimalType wolfType;
         string WOLF_NAME = "wolf";
         int WOLF_INITIALHUNGER = 20;
-        int WOLF_FOODCAP = 30;
+        int WOLF_FOODCAP = 40;
             // Reproduction
-        int WOLF_COOLDOWN = 10;
-        int WOLF_ADULTAGE = 20;
-        int WOLF_MAXAGE = 40;
+        int WOLF_COOLDOWN = 20;
+        int WOLF_ADULTAGE = 30;
+        int WOLF_MAXAGE = 70;
         int WOLF_MOVEMENT = 1;
         // Misc.
         public int wolfCount;
 
 
-        int PLANT_HARDINESS = 6;
-        int ANIMAL_HARDINESS = 40;
+        int PLANT_HARDINESS = 10;
+        int ANIMAL_HARDINESS = 30;
         bool ANTI_EXTINCTION;
 
         // constructor
@@ -256,8 +256,6 @@ namespace EcosystemProject
         {
             updateTxtGrid();
             string worldGrid = "";
-
-            // draw grid
             for (int j=0; j<height; j++)
             {
                 for (int i=0; i<width; i++)
@@ -352,15 +350,13 @@ namespace EcosystemProject
         private void defaultBehavior(Animal a)
         {
             Coord temp = new Coord();
-            if (a.isFull && !neighborsEntity(a, a.foodName(), temp) )
+            if (!a.isFull && neighborsEntity(a, a.foodName(), temp) )
             {
                 eatFoodAt(a, temp);
             }
             else
             {
-                int mv = a.getMovement();
-                temp = new Coord(random.Next(-mv, mv + 1), random.Next(-mv, mv + 1));
-                moveAnmlByVector(a, temp);
+                moveRandomly(a);
             }
         }
 
@@ -407,7 +403,7 @@ namespace EcosystemProject
             }
         }
 
-        public void eatFoodAt(Animal a, Coord c)
+        private void eatFoodAt(Animal a, Coord c)
         {
             if (hasPlant[c.x, c.y])
                 if (plants[plntGrid[c.x, c.y]].name == a.foodName())
@@ -446,7 +442,7 @@ namespace EcosystemProject
             return false;
         }
 
-        bool killAnimal(Animal a)
+        private bool killAnimal(Animal a)
         {
             if (animals.Contains(a))
             {
@@ -463,7 +459,7 @@ namespace EcosystemProject
             return false;
         }
 
-        void moveAnmlToward(Animal a, Coord loc)
+        private void moveAnmlToward(Animal a, Coord loc)
         {
             Coord vToLoc = loc - a.coord;
             double vLength = vToLoc.getDistance(Coord.coordAt(0, 0));
@@ -471,7 +467,7 @@ namespace EcosystemProject
             moveAnmlByVector(a, mvmntVector);
         }
 
-        bool moveAnmlByVector(Animal a, Coord v)
+        private bool moveAnmlByVector(Animal a, Coord v)
         {
             Coord oldLoc = a.coord;
             Coord newLoc = oldLoc+v;
@@ -492,12 +488,12 @@ namespace EcosystemProject
             return false;
         }
 
-        bool neighborsEntity(Animal a, string name)
+        private bool neighborsEntity(Animal a, string name)
         {
             return neighborsEntity(a, name, Coord.coordAt(0, 0));
         }
 
-        bool neighborsEntity(Animal a, string name, Coord o)
+        private bool neighborsEntity(Animal a, string name, Coord o)
         {
             o = findEntityWithin(a, name, 1);
             if (o == null)
@@ -505,7 +501,7 @@ namespace EcosystemProject
             return true;
         }
 
-        Coord findEntityWithin(Animal a, string name, int range)
+        private Coord findEntityWithin(Animal a, string name, int range)
         {
             for (int i=a.coord.x-range; i<=a.coord.x+range; i++)
             {
@@ -532,16 +528,28 @@ namespace EcosystemProject
             return null;
         }
 
-        void moveToNearestEntity(Animal a, string eName)
+        private void moveRandomly(Animal a)
+        {
+            int m = a.getMovement();
+            int x = random.Next(-m, m + 1);
+            int y = random.Next(-m, m + 1);
+            moveAnmlByVector(a, new Coord(x, y));
+        }
+
+        private void moveToNearestEntity(Animal a, string eName)
         {
             if (entityExists(eName) )
             {
                 Coord eLoc = findNearestEntity(a, eName);
                 moveAnmlToward(a, eLoc);
             }
+            else
+            {
+                moveRandomly(a);
+            }
         }
 
-        Coord findNearestEntity(Animal a, string eName)
+        private Coord findNearestEntity(Animal a, string eName)
         {
             List<Coord> eCoords = new List<Coord>();
             foreach (Plant p in plants)
@@ -569,7 +577,7 @@ namespace EcosystemProject
                 return null;
         }
         
-        bool entityExists(string n)
+        private bool entityExists(string n)
         {
             foreach (Plant p in plants)
             {
