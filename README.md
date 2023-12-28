@@ -1,15 +1,16 @@
-#Ecosystem Project 
+# Ecosystem Project 
 A windows application that simulates a preditor-prey environment.
 
-###Contents
+### Contents
 - [Usage](##Usage)
   * [Creation](###Creation)
   * [Progression](###Progression)
-  * [Info](### Info)
+  * [Info](###Info)
   * [Appearacne](###Appearance)
 - [Download](##Download)
+<a name="headers"/>
 
-##Usage
+## Usage
 
 ![](/ReadMe_Images/screenshot1.png)
 
@@ -61,5 +62,5 @@ Save buttons save a txt file containing graph's data for that population. Format
 | night mode | Toggle for night mode. | 
 | colored grid | Add color to the grid. Helps with identifying entities, but lags the program a bit. |
 
-##Download
+## Download
 [Download Executable Here](https://github.com/JollyWolly/EcosystemProject/releases/tag/windows)
