@@ -12,6 +12,9 @@ Entities:
 | Wolf  | v | Adolescent wolf. Consumes sheep. Matures after 20 days.  |
 |       | ¥ | Adult wolf. Consumes sheep. Will seek out mate if fed.   |
 
+## Download
+[Download Executable Here](/EcosystemProject/bin/Debug/EcosystemProject.exe)
+
 ## Usage
 ### Creation
 | Control | Description | 
