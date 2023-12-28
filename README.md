@@ -13,7 +13,7 @@ Entities:
 |       | ¥ | Adult wolf. Consumes sheep. Will seek out mate if fed.   |
 
 ## Usage
-# Creation
+### Creation
 | Control | Description | 
 | --- | --- |
 | Height             | Number of tiles high environment is. |
@@ -22,14 +22,14 @@ Entities:
 | Spawn Rate         | Controls the amount of a species that is initially generated. |
 | Create Eco         | Create an ecosystem with the above parameters. |
 
-# Progression
+### Progression
 | Control | Description |
 | --- | --- |
 | Skip Days | Set number of days to skip. | 
 | Skip      | Skip the set amount of days. |
 | Next Day  | Progress to next day in simulation. |
 
-# Info
+### Info
 | Button | Option |  Description |
 | --- | --- | --- |
 | Pop. Graph |    | Opens new window showing population over time.        |
@@ -45,7 +45,7 @@ Entities:
 
 Save buttons save a txt file containing graph's data for that population. Formatted as '(day, number)'. 
 
-# Appearance 
+### Appearance 
 | Theme | Description | 
 | --- | --- |
 | night mode | Toggle for night mode. | 
