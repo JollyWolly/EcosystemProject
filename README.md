@@ -1,5 +1,15 @@
 # Ecosystem Project 
-A windows application that simulates a preditor-prey environment. 
+A windows application that simulates a preditor-prey environment.
+
+### Contents
+- [Usage](##Usage)
+  * [Creation](###Creation)
+  * [Progression](###Progression)
+  * [Info](###Info)
+  * [Appearacne](###Appearance)
+- [Download](##Download)
+
+## Usage
 
 ![](/ReadMe_Images/screenshot1.png)
 
@@ -12,10 +22,6 @@ Entities:
 | Wolf  | v | Adolescent wolf. Consumes sheep. Matures after 20 days.  |
 |       | ¥ | Adult wolf. Consumes sheep. Will seek out mate if fed.   |
 
-## Download
-[Download Executable Here](https://github.com/JollyWolly/EcosystemProject/releases/tag/windows)
-
-## Usage
 ### Creation
 | Control | Description | 
 | --- | --- |
@@ -48,8 +54,12 @@ Entities:
 
 Save buttons save a txt file containing graph's data for that population. Formatted as '(day, number)'. 
 
+
 ### Appearance 
 | Theme | Description | 
 | --- | --- |
 | night mode | Toggle for night mode. | 
 | colored grid | Add color to the grid. Helps with identifying entities, but lags the program a bit. |
+
+## Download
+[Download Executable Here](https://github.com/JollyWolly/EcosystemProject/releases/tag/windows)
